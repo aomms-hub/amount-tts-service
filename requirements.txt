@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+gTTS
+redis
+python-dotenv
+requests
+pydub
