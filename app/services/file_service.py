@@ -11,12 +11,22 @@ def upload_to_gofile(filepath):
 
     if response.status_code == 200:
         result = response.json()
-        print(result)
         if result['status'] == 'ok':
-            data = result['data']
-            return data['downloadPage']
+            direct_link = make_direct_download_url(result)
+            return direct_link
     print("Upload failed:", response.text)
     return None
+
+def make_direct_download_url(response: dict) -> str:
+    data = response.get("data", {})
+    server = data.get("servers", [None])[0]
+    file_id = data.get("id")
+    filename = data.get("name")
+
+    if server and file_id and filename:
+        return f"https://{server}.gofile.io/download/web/{file_id}/{filename}"
+    else:
+        raise ValueError("Invalid response data, missing required fields")
 
 def generate_filename(prefix: str, message: str) -> str:
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
