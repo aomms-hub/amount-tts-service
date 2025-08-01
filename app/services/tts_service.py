@@ -6,8 +6,8 @@ TTS_PREFIX = "tts"
 
 
 def generate_tts(amount: str, lang: str = "th") -> str:
-    filename = generate_filename(TTS_PREFIX, amount.replace('.',''))
     tts = gTTS(text=generate_message(amount), lang=lang)
+    filename = generate_filename(TTS_PREFIX, amount.replace('.',''))
     output_path = os.path.join("static", filename)
     os.makedirs("static", exist_ok=True)
     tts.save(output_path)
@@ -17,6 +17,6 @@ def generate_message(amount: str) -> str:
     whole, fraction = amount.split(".")
     fraction = fraction.lstrip("0")
     message = f"มีเงินเข้า {whole} บาท"
-    if fraction != "00":
+    if fraction:
         message += f"{fraction} สตางค์"
     return message
