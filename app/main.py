@@ -16,4 +16,8 @@ def generate_voice(amount: str):
     if cached:
         return {"from_cache": True, "audio_url": cached}
     audio_url = generate_voice_amount(amount)
-    return {"from_cache": False, "audio_url": audio_url}
+    return {
+        "from_cache": False,
+        "amount": amount,
+        "audio_url": audio_url
+    }
