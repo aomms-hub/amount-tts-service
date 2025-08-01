@@ -14,7 +14,7 @@ def root():
 def generate_voice(amount: str):
     cached = get_cached_voice(amount)
     if cached:
-        return {"from_cache": True, "audio_url": cached}
+        return {"from_cache": True, "amount": amount, "audio_url": cached}
     audio_url = generate_voice_amount(amount)
     return {
         "from_cache": False,
